@@ -18,7 +18,21 @@ class RoleSeeder extends Seeder
     public function run()
     {
         // Roles a crear
-        $data = ['admin', 'escritor'];
+        $dataRoles = ['admin', 'escritor'];
+
+        // Usuarios a crear
+        $dataUsers = [
+            [
+                'name'     => 'Manuel Henriquez',
+                'email'    => 'manuel@pruebas.com',
+                'password' => bcrypt('12345678'),
+            ],
+            [
+                'name'     => 'Fanny Carvajal',
+                'email'    => 'fanny@pruebas.com',
+                'password' => bcrypt('12345678'),
+            ],
+        ];
 
         // Creación de roles usando map
         $roles = array_map(
@@ -27,17 +41,20 @@ class RoleSeeder extends Seeder
                     'name' => $name
                 ]);
             },
-            $data
+            $dataRoles
         );
 
-        // Creación de un usuario admin para pruebas
-        $user = User::create([
-            'name'     => 'Manuel Henriquez',
-            'email'    => 'manuel@pruebas.com',
-            'password' => bcrypt('12345678'),
-        ]);
+        // Creación de usuarios para pruebas, admin y escritor
+        $users = array_map(
+            function ($data) {
+                return User::create($data);
+            },
+            $dataUsers
+        );
 
-        // Asignar el rol admin al usuario
-        $user->assignRole($roles[0]);
+        // Asignar roles a los usuarios
+        foreach ($users as $i => $user) {
+            $users[$i]->assignRole($roles[$i]);
+        }
     }
 }
