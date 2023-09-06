@@ -12,6 +12,8 @@ $configData = Helper::appClasses();
     <div class="row">
         <div class="col-lg-12">
             <form action="{{ route('files.store') }}" method="POST" enctype="multipart/form-data" id="upload-file">
+                @csrf
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">

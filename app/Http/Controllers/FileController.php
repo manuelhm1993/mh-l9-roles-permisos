@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -35,7 +36,22 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Obtener el archivo
+        $file = $request->file('file');
+
+        // Obtener el nombre del archivo, guardarlo en la carpeta pública y obtener su ruta
+        $name = $file->getClientOriginalName();
+        $path = $file->store('public/files');
+        // $path = $file->move('files', $name);
+
+        // Crear un nuevo modelo File
+        $file = File::create([
+            'name' => $name,
+            'path' => $path,
+        ]);
+
+        // Redirigir al usuario a files.index con un feedback
+        return to_route('files.index')->with('status', 'File has been uploaded successfully in Laravel');
     }
 
     /**

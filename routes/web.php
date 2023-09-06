@@ -29,8 +29,6 @@ Route::middleware([
     $controller_path = 'App\Http\Controllers';
 
     Route::get('/', $controller_path . '\pages\HomePage@index')->name('pages-home');
-    // Route::get('/files', $controller_path . '\FileController@index')->name('files.index');
-    // Route::post('/files', $controller_path . '\FileController@store')->name('files.store');
 
     Route::resource('files', FileController::class)->only([
         'index', 'store'
