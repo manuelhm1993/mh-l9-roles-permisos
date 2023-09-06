@@ -25,10 +25,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-$controller_path = 'App\Http\Controllers';
+    $controller_path = 'App\Http\Controllers';
 
     Route::get('/', $controller_path . '\pages\HomePage@index')->name('pages-home');
-    Route::get('/page-2', $controller_path . '\pages\Page2@index')->name('pages-page-2');
-
-    
+    Route::get('/files', $controller_path . '\FileController@index')->name('files.index');
+    Route::post('/files', $controller_path . '\FileController@store')->name('files.store');
 });
