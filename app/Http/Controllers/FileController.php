@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -15,7 +14,9 @@ class FileController extends Controller
      */
     public function index()
     {
-        return view('content.pages.files.index');
+        $ficheros = File::all();
+
+        return view('content.pages.files.index', compact('ficheros'));
     }
 
     /**
@@ -41,8 +42,7 @@ class FileController extends Controller
 
         // Obtener el nombre del archivo, guardarlo en la carpeta pública y obtener su ruta
         $name = $file->getClientOriginalName();
-        $path = $file->store('public/files');
-        // $path = $file->move('files', $name);
+        $path = 'storage/' . $file->store('files', 'public');
 
         // Crear un nuevo modelo File
         $file = File::create([

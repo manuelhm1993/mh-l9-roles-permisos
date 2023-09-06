@@ -16,7 +16,7 @@ $configData = Helper::appClasses();
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <input type="file" name="file" placeholder="Choose file" id="file">
 
                             @error('file')
@@ -32,6 +32,34 @@ $configData = Helper::appClasses();
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ruta</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($ficheros as $fichero)
+                        <tr>
+                            <th scope="row">{{ $fichero->id }}</th>
+                            <td>{{ $fichero->name }}</td>
+                            <td>{{ $fichero->path }}</td>
+                            <td>
+                                <a href="{{ $fichero->path }}">Descargar</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
